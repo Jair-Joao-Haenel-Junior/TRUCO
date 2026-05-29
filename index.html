@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contador de Pontos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="setupScreen" class="screen setup-screen active">
+      <div class="setup-card">
+        <div class="title-area">
+          <span class="badge">Contador de Pontos</span>
+          <h1>Configurar partida</h1>
+          <p>Escolha o tipo de partida, informe os participantes e comece a contagem.</p>
+        </div>
+
+        <details class="integration-card">
+          <summary>Configurar gravação no Google Sheets</summary>
+          <p>
+            Cole aqui a URL do Google Apps Script publicada como Web App. Ela ficará salva neste navegador.
+          </p>
+          <div class="field-group compact-field">
+            <label for="googleScriptUrl">URL do Apps Script</label>
+            <input
+              id="googleScriptUrl"
+              type="url"
+              placeholder="https://script.google.com/macros/s/SEU_ID/exec"
+            />
+          </div>
+          <button id="saveConfigButton" class="secondary-button" type="button">Salvar URL</button>
+          <small id="configStatus" class="config-status"></small>
+        </details>
+
+        <div class="field-group">
+          <label for="gameMode">Tipo da partida</label>
+          <select id="gameMode">
+            <option value="1">Individual</option>
+            <option value="2">Dupla</option>
+            <option value="3">Trio</option>
+          </select>
+        </div>
+
+        <div class="teams-form">
+          <div class="team-form-card">
+            <h2>Time A</h2>
+            <div id="teamAFields" class="participants-fields"></div>
+          </div>
+
+          <div class="team-form-card">
+            <h2>Time B</h2>
+            <div id="teamBFields" class="participants-fields"></div>
+          </div>
+        </div>
+
+        <button id="startButton" class="primary-button">Começar partida</button>
+      </div>
+    </section>
+
+    <section id="scoreScreen" class="screen score-screen">
+      <header class="score-header">
+        <button id="backButton" class="ghost-button">← Voltar</button>
+        <div>
+          <strong id="matchTypeLabel">Partida</strong>
+          <span>Clique no lado do time para somar 1 ponto ou use os botões especiais</span>
+        </div>
+        <div class="header-actions">
+          <button id="finishButton" class="finish-button">Terminar Partida</button>
+          <button id="resetButton" class="ghost-button">Zerar</button>
+        </div>
+      </header>
+
+      <div class="score-board">
+        <article id="teamAZone" class="team-zone team-a" role="button" tabindex="0" aria-label="Somar ponto para Time A">
+          <div class="team-content">
+            <span class="team-label">Time A</span>
+            <h2 id="teamAName">Time A</h2>
+            <p id="teamAParticipants">Participantes</p>
+            <strong id="teamAScore" class="score">0</strong>
+
+            <div class="special-buttons" aria-label="Pontuações especiais do Time A">
+              <button class="score-action-button" data-team="A" data-points="2">Truco <span>+2</span></button>
+              <button class="score-action-button" data-team="A" data-points="3">Retruco <span>+3</span></button>
+              <button class="score-action-button" data-team="A" data-points="4">Vale 4 <span>+4</span></button>
+              <button class="score-action-button" data-team="A" data-points="2">Envido <span>+2</span></button>
+              <button class="score-action-button" data-team="A" data-points="5">Real Envido <span>+5</span></button>
+              <button class="score-action-button" data-team="A" data-points="3">Flor <span>+3</span></button>
+            </div>
+          </div>
+
+          <button id="minusAButton" class="minus-button" aria-label="Diminuir ponto do Time A">−</button>
+        </article>
+
+        <article id="teamBZone" class="team-zone team-b" role="button" tabindex="0" aria-label="Somar ponto para Time B">
+          <div class="team-content">
+            <span class="team-label">Time B</span>
+            <h2 id="teamBName">Time B</h2>
+            <p id="teamBParticipants">Participantes</p>
+            <strong id="teamBScore" class="score">0</strong>
+
+            <div class="special-buttons" aria-label="Pontuações especiais do Time B">
+              <button class="score-action-button" data-team="B" data-points="2">Truco <span>+2</span></button>
+              <button class="score-action-button" data-team="B" data-points="3">Retruco <span>+3</span></button>
+              <button class="score-action-button" data-team="B" data-points="4">Vale 4 <span>+4</span></button>
+              <button class="score-action-button" data-team="B" data-points="2">Envido <span>+2</span></button>
+              <button class="score-action-button" data-team="B" data-points="5">Real Envido <span>+5</span></button>
+              <button class="score-action-button" data-team="B" data-points="3">Flor <span>+3</span></button>
+            </div>
+          </div>
+
+          <button id="minusBButton" class="minus-button" aria-label="Diminuir ponto do Time B">−</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

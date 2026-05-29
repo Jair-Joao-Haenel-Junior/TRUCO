@@ -1,0 +1,489 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0f172a;
+  --card: #111827;
+  --card-soft: #1f2937;
+  --text: #f8fafc;
+  --muted: #cbd5e1;
+  --line: rgba(255, 255, 255, 0.12);
+  --green: #16a34a;
+  --green-dark: #15803d;
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --danger: #ef4444;
+  --danger-dark: #dc2626;
+  --team-a-start: #2563eb;
+  --team-a-end: #1d4ed8;
+  --team-b-start: #16a34a;
+  --team-b-end: #15803d;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.28), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.24), transparent 32rem),
+    var(--bg);
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: flex;
+}
+
+.setup-screen {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.setup-card {
+  width: min(980px, 100%);
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(17, 24, 39, 0.92);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.title-area {
+  margin-bottom: 28px;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 8px 12px;
+  border: 1px solid rgba(22, 163, 74, 0.45);
+  border-radius: 999px;
+  color: #bbf7d0;
+  background: rgba(22, 163, 74, 0.12);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 16px 0 8px;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.field-group {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+label {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+select,
+input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  outline: none;
+  color: var(--text);
+  background: rgba(15, 23, 42, 0.72);
+}
+
+select {
+  padding: 14px 16px;
+}
+
+input {
+  padding: 13px 14px;
+}
+
+input:focus,
+select:focus {
+  border-color: rgba(22, 163, 74, 0.85);
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.teams-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.team-form-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(31, 41, 55, 0.72);
+}
+
+.team-form-card h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.participants-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.primary-button {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  color: white;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  font-size: 18px;
+  font-weight: 800;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.primary-button:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.score-screen {
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.score-header {
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.score-header div {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.score-header span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.ghost-button {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ghost-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.score-board {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.team-zone {
+  position: relative;
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border: 0;
+  overflow: auto;
+  user-select: none;
+  transition: filter 0.15s ease, transform 0.08s ease;
+}
+
+.team-zone:hover {
+  filter: brightness(1.05);
+}
+
+.team-zone:active {
+  transform: scale(0.995);
+}
+
+.team-a {
+  background:
+    linear-gradient(135deg, var(--team-a-start), var(--team-a-end));
+}
+
+.team-b {
+  background:
+    linear-gradient(135deg, var(--team-b-start), var(--team-b-end));
+}
+
+.team-content {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  z-index: 1;
+}
+
+.team-label {
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 800;
+}
+
+.team-content h2 {
+  max-width: 90%;
+  margin: 0;
+  font-size: clamp(28px, 5vw, 58px);
+  line-height: 1.05;
+}
+
+.team-content p {
+  max-width: min(460px, 90%);
+  min-height: 24px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.score {
+  margin-top: 8px;
+  font-size: clamp(80px, 15vw, 180px);
+  line-height: 0.85;
+  letter-spacing: -8px;
+}
+
+.special-buttons {
+  width: min(420px, 100%);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+  z-index: 2;
+}
+
+.score-action-button {
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  padding: 10px 12px;
+  color: white;
+  background: rgba(15, 23, 42, 0.26);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+  font-weight: 900;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+.score-action-button span {
+  display: block;
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.score-action-button:hover {
+  background: rgba(15, 23, 42, 0.42);
+  transform: translateY(-1px);
+}
+
+.score-action-button:active {
+  transform: translateY(0);
+}
+
+.minus-button {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 24px;
+  color: white;
+  background: rgba(239, 68, 68, 0.94);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  font-size: 46px;
+  font-weight: 900;
+  line-height: 1;
+  z-index: 2;
+}
+
+.minus-button:hover {
+  background: var(--danger-dark);
+}
+
+@media (max-width: 760px) {
+  .setup-card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  /* .teams-form,
+  .score-board {
+    grid-template-columns: 1fr;
+  } */
+
+  .team-zone {
+    min-height: calc((100vh - 74px) / 2);
+    padding: 20px 14px 88px;
+  }
+
+  .special-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .score-action-button {
+    min-height: 42px;
+    border-radius: 13px;
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .score-action-button span {
+    font-size: 11px;
+  }
+
+  .score {
+    font-size: clamp(56px, 20vw, 104px);
+    letter-spacing: -4px;
+  }
+
+  .minus-button {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    font-size: 36px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .score-header {
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 8px;
+  }
+
+  .ghost-button {
+    padding: 9px 10px;
+    font-size: 14px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.finish-button {
+  border: 0;
+  border-radius: 14px;
+  padding: 11px 14px;
+  color: white;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  font-weight: 900;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.finish-button:hover {
+  filter: brightness(1.06);
+}
+
+.finish-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: grayscale(0.4);
+}
+
+@media (max-width: 760px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .finish-button {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+}
+
+.integration-card {
+  margin-bottom: 22px;
+  padding: 16px;
+  border: 1px solid rgba(22, 163, 74, 0.38);
+  border-radius: 20px;
+  background: rgba(22, 163, 74, 0.08);
+}
+
+.integration-card summary {
+  cursor: pointer;
+  color: #bbf7d0;
+  font-weight: 900;
+}
+
+.integration-card p {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.compact-field {
+  margin-bottom: 12px;
+}
+
+.secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 11px 14px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 800;
+}
+
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.config-status {
+  display: block;
+  min-height: 18px;
+  margin-top: 10px;
+  color: #bbf7d0;
+}
